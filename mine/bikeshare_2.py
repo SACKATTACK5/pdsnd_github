@@ -52,7 +52,7 @@ def get_filters():
 	if ch.lower()=='y':
 		day.append('all')
 	else:
-		while(i<7 and ch!='e'):
+		while(i<7 and ch!='e'):#filter by more than one day
 			ch=input('whould you like to filter by the day: {}? enter "y" for yes and "n" for no and "e" for escape '.format(days[i]))
 			ch= ch.lower()
 			match ch:
@@ -97,7 +97,7 @@ def load_data(city, month, day):
 			month[i]=months.index(month[i]) + 1
 		df=df[df['month'].isin(month)]
 	if day[0]!='all':
-		df=df[df['day_of_week'].isin(day)]
+		df=df[df['day_of_week'].isin(day)]#if the day is in the days of the week add it to the day_of_week column
 	return df
 
 
