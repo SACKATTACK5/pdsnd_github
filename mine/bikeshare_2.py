@@ -8,23 +8,8 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'washington': 'washington.csv' }
 months=('january','february','march','april','may','june')
 days=('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday')
-
-def get_filters():
-	"""
-	Asks user to specify a city, month, and day to analyze.
-
-	Returns:
-		(str) city - name of the city to analyze
-		(str) month - name of the month to filter by, or "all" to apply no month filter
-		(str) day - name of the day of week to filter by, or "all" to apply no day filter
-	"""
-	print('Hello! Let\'s explore some US bikeshare data!')
-	# get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-	city=''
-	day=[]
+def getMonth():
 	month=[]
-	while(city not in CITY_DATA):
-		city=input('would you like to see data for Chicago, New York,or Washington? ').lower()
 	i=0
 	ch=''
 	ch=input('whould you like to filter by all months? enter "y" for yes and "n" for no ')
@@ -44,10 +29,13 @@ def get_filters():
 					continue
 				case _:
 					print('INVALID CHOICE!\n')
-	ch=''
-	i=0
 	if not month:
 		month.append('all')
+	return month
+def getDay():
+	day=[]
+	i=0
+	ch=''
 	ch=input('whould you like to filter by all days? enter "y" for yes and "n" for no ')
 	if ch.lower()=='y':
 		day.append('all')
@@ -65,13 +53,29 @@ def get_filters():
 					continue
 				case _:
 					print('INVALID CHOICE!\n')
-    # get user input for month (all, january, february, ... , june)
 	if not day:
 		day.append('all')
+	return day
+def get_filters():
+	"""
+	Asks user to specify a city, month, and day to analyze.
 
+	Returns:
+		(str) city - name of the city to analyze
+		(str) month - name of the month to filter by, or "all" to apply no month filter
+		(str) day - name of the day of week to filter by, or "all" to apply no day filter
+	"""
+	print('Hello! Let\'s explore some US bikeshare data!')
+	# get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+	city=''
+	day=[]
+	month=[]
+	while(city not in CITY_DATA):
+		city=input('would you like to see data for Chicago, New York,or Washington? ').lower()
+	month=getMonth()
+    # get user input for month (all, january, february, ... , june)
+	day=getDay()
     # get user input for day of week (all, monday, tuesday, ... sunday)
-
-	
 	print('-'*40)
 	return city, month, day
 
@@ -201,6 +205,7 @@ def display_data(df):
 			print(df.iloc[i:i+5])
 			i+=5
 			c=input('Would you like to see more data? please enter yes or no ').lower()
+
 def main():
 	while True:
 		city, month, day = get_filters()
